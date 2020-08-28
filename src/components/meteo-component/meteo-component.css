@@ -1,0 +1,20 @@
+:host {
+  display: block;
+}
+ion-grid#meteoCmp  {
+  height: auto;
+  max-width: 170px;
+}
+#meteoCmp img {
+  max-width: 52px;
+}
+#meteoCmp p {
+  margin: 0;
+  padding: 0;
+}
+#meteoCmp #temp {
+  font-size: 1.8rem;
+}
+#meteoCmp #temp, #meteoCmp #cityName {
+  color: #fff;
+}

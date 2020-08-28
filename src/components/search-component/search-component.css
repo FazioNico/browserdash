@@ -1,0 +1,20 @@
+:host {
+  display: block;
+}
+ion-searchbar {
+  text-align: left;
+  padding: 1rem;
+  margin: 1rem auto;
+  --background: #fff !important;
+  --placeholder-color: #333 !important;
+  --color: #333 !important;
+  --border-radius: 2rem !important;
+  opacity: 0.6;
+  transition: all ease-in-out 85ms;
+}
+ion-searchbar:hover, ion-searchbar:active, ion-searchbar:focus {
+  opacity: 0.9;
+}
+.searchbar-input-container.sc-ion-searchbar-ios {
+  height: 50px !important;
+}

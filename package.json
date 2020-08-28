@@ -1,0 +1,29 @@
+{
+  "name": "browserdash",
+  "private": true,
+  "version": "0.0.1",
+  "description": "browserdash",
+  "license": "MIT",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "dev": "npm run start",
+    "build": "stencil build",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watch",
+    "generate": "stencil generate",
+    "g": "stencil generate"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^2.4.0",
+    "@ionic/core": "^5.3.1",
+    "@stencil/core": "^1.17.3"
+  },
+  "dependencies": {
+    "@capacitor/core": "^2.4.0",
+    "firebase": "^7.19.0",
+    "jquery": "^3.5.1"
+  }
+}

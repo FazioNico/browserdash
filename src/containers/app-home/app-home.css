@@ -1,0 +1,39 @@
+ion-toolbar {
+  --border-color: transparent;
+}
+ion-grid {
+  height: 100%;
+  display: grid;
+}
+ion-grid#main {
+  display: none;
+}
+.shadow {
+  background: radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.2) 50%, transparent 100%);
+}
+ion-col.shadow, search-component.shadow {
+  padding: 2rem 0;
+}
+ion-content {
+  --background: transparent;
+}
+meteo-component {
+  position: fixed;
+  top: 0.5rem;
+  right: 1rem;
+  opacity: 0.8;
+}
+meteo-component:hover {
+  opacity: 1;
+}
+ion-button {
+  cursor: pointer;
+}
+search-component {
+  max-width: 400px;
+  display: block;
+  margin: 0rem auto -5rem;
+}
+ion-chip {
+  margin: auto;
+}
