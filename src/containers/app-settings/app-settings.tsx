@@ -1,7 +1,7 @@
 import { Component, h, State } from '@stencil/core';
 import fbService, { IFbService } from '../../providers/firebase.service';
 import { defaultWidgetsSetting } from '../../providers/default-widgets';
-import { getWidgetsAsArray, compareValues } from '../../helpers/utils';
+import { getWidgetsAsArray, compareValues, log } from '../../helpers/utils';
 
 
 
@@ -17,7 +17,7 @@ export class AppSettings {
   @State() widgets: any[];
   @State() darkModeEnable: boolean;
 
-  async connectedCallback() {   
+  connectedCallback() {   
     if (!this.fbService.auth.currentUser) {
       return window.location.href = '/';
     }
@@ -25,16 +25,22 @@ export class AppSettings {
 
   async componentWillLoad() {
     const user = this.fbService.auth.currentUser;
-    const userData = await this.fbService.database.ref('users').child(user.uid).once('value').then(r => r.val())
-    const widgetsData = await this.fbService.database.ref('widgets').child(user.uid).once('value').then(r => r.val())
-    console.log('userData', userData);
-    console.log('widgetsData', widgetsData);
+    const userData = await this.fbService.ref('users').child(user.uid).once('value').then(r => r.val())
+    const widgetsData = await this.fbService.ref('widgets').child(user.uid).once('value').then(r => r.val())
+    // log('widgetsData', widgetsData);
     this.displayName = userData?.displayName || user.displayName;
-    console.log('userData', this.displayName);
+    // log('userData', this.displayName);
     const widgets = getWidgetsAsArray(widgetsData);
-    this.widgets = [...defaultWidgetsSetting.filter(w => w.enabled && !widgets.some(wi => wi.name === w.name)),  ...widgets];
-    console.log('this.widgets', this.widgets);
-    this.darkModeEnable = userData?.settings?.darkMode || true;
+    this.widgets = [
+      ...defaultWidgetsSetting.filter(
+        w => w.enabled && !widgets.some(wi => wi.name === w.name)
+      ),
+      ...widgets
+    ];
+    // log('this.widgets', this.widgets);
+    this.darkModeEnable = userData?.settings?.darkMode;
+    document.body.classList.toggle('dark', this.darkModeEnable);
+    log('userData',  userData?.settings?.darkMode);
   }
 
   handleChange(e: any, widget = false) {
@@ -44,29 +50,29 @@ export class AppSettings {
       checked = null
     } = e.target;
     const data = {[key]: (!widget) ? value : checked};
-    console.log(data);
+    log(data);
     const user = this.fbService.auth.currentUser;
-    this.fbService.database.ref((widget) ? 'widgets' : 'users').child(user.uid).child(key).set((widget) ? checked :  value )
+    this.fbService.ref((widget) ? 'widgets' : 'users').child(user.uid).child(key).set((widget) ? checked :  value )
   }
 
   handleOptions(widget) {
-    console.log(widget);
-    
+    log(widget);
   }
 
   toggleDarkMode(e) {
     this.darkModeEnable = e.detail.checked;
     document.body.classList.toggle('dark', this.darkModeEnable);
+    this.fbService.ref('users')
+                  .child(this.fbService.auth.currentUser.uid)
+                  .child('settings').update({darkMode: this.darkModeEnable})
+                  .catch(err => {
+                    log('Error: ', err);
+                    this.darkModeEnable = !this.darkModeEnable;
+                  })
   }
 
   render() {
-    const widgets = this.widgets
-      .filter(el => {
-        console.log('xxx', el);
-        
-        return el;
-      })
-      .sort(compareValues('name'))
+    const widgets = this.widgets.sort(compareValues('name'));
     return [
       <ion-header>
         <ion-toolbar>
@@ -104,6 +110,11 @@ export class AppSettings {
                 <ion-item>
                   <ion-label>Email:</ion-label>
                   <ion-input disabled={true} name="email" value={this.fbService.auth.currentUser.email} onInput={(e) => this.handleChange(e)}></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-button onClick={async () => await this.fbService.auth.signOut()} color="danger">
+                    Logout
+                  </ion-button>
                 </ion-item>
               </ion-list>
               {/* <ion-button size="small">save</ion-button> */}

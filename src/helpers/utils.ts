@@ -1,6 +1,6 @@
-export const log = (data: any, level?: number) => {
+export const log = (...data: any) => {
   if (window?.location?.href?.includes('localhost')) {
-    console.log('[LOG] ', data);
+    console.log('[LOG] ', ...data);
   };
 }
 

@@ -1,5 +1,6 @@
 import { Component, h, State } from '@stencil/core';
 import fbService, { IFbService } from '../../providers/firebase.service';
+import { log } from '../../helpers';
 
 @Component({
   tag: 'app-root',
@@ -11,28 +12,30 @@ export class AppRoot {
   @State() user: any = undefined;
   
   connectedCallback() {
-    document.body.classList.toggle('dark', true); 
     this.fbService = fbService;
-    this.fbService.auth.onAuthStateChanged((user) => {
+    this.fbService.auth.onAuthStateChanged(async(user) => {
       if (user) {
         // User is signed in.
-        console.log('user:', user);
+        log('user:', user);
         this.user = user;
+        const userData = await this.fbService.ref('users').child(user.uid).once('value').then(r => r.val())
+        document.body.classList.toggle('dark', userData?.settings?.darkMode); 
       } else {
         // No user is signed in.
-        console.log('not loged', user);
-        this.user = null
+        log('not loged', user);
+        this.user = null;
+        document.body.classList.toggle('dark', true); 
       }
     });
   }
 
-  signin() {
-    console.log('signin...');
-    this.fbService.signIn()
+  async signin() {
+    log('signin...');
+    await this.fbService.signIn()
   }
   
   render() {
-    console.log('user->', this.user);
+    log('user->', this.user);
     if (this.user)  {
       return (
         <ion-app>

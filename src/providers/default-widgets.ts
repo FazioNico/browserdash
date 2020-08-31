@@ -5,5 +5,5 @@ export const defaultWidgetsSetting = [
   {displayName: 'Inspiration quotes', name: 'quote', active: false, enabled: false},
   {displayName: 'Hello', name: 'hello', active: true, enabled: true},
   {displayName: 'Current Time', name: 'time', active: true, enabled: true},
-  {displayName: 'Search with Google', name: 'search', active: false, enabled: true},
+  {displayName: 'Search with Google', name: 'search', active: true, enabled: true},
 ];

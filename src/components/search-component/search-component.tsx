@@ -6,6 +6,8 @@ import { Component, Host, h } from '@stencil/core';
   shadow: false,
 })
 export class SearchComponent {
+  
+  searchInput: HTMLIonSearchbarElement;
 
   handleEvent(event: KeyboardEvent) {
     event.preventDefault();
@@ -29,7 +31,9 @@ export class SearchComponent {
   render() {
     return (
       <Host>
-        <ion-searchbar onKeyUp={(e) => this.handleEvent(e)} placeholder="" spellcheck={true} mode="ios"></ion-searchbar>
+        <ion-searchbar
+            ref={el => this.searchInput = el as HTMLIonSearchbarElement}
+            onKeyUp={(e) => this.handleEvent(e)} placeholder="" spellcheck={true} mode="ios"></ion-searchbar>
         <slot></slot>
       </Host>
     );

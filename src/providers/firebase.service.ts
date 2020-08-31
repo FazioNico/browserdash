@@ -9,12 +9,13 @@ import { log } from "../helpers/utils";
 
 export interface IFbService {
   auth: firebase.auth.Auth;
-  database: firebase.database.Database,
-  signIn: () => Promise<firebase.auth.UserCredential>
-  push: (ref: string, data: any) => Promise<any>
-  set: (ref: string, data: any) => Promise<any>
-  update: (ref: string, data: any) => Promise<any>
-  remove: (ref: string) => Promise<any>
+  // database: firebase.database.Database,
+  ref: (ref: string) => firebase.database.Reference;
+  signIn: () => Promise<firebase.auth.UserCredential>;
+  push: (ref: string, data: any) => Promise<any>;
+  set: (ref: string, data: any) => Promise<any>;
+  update: (ref: string, data: any) => Promise<any>;
+  remove: (ref: string) => Promise<any>;
 }
 
 class FirebaseService implements IFbService {
@@ -24,9 +25,9 @@ class FirebaseService implements IFbService {
     return this._auth;
   }
   private _database: firebase.database.Database;
-  public get database(): firebase.database.Database {
-    return this._database;
-  }
+  // public get database(): firebase.database.Database {
+  //   return this._database;
+  // }
   private _googleProvider: firebase.auth.GoogleAuthProvider;
 
   constructor(config: Object) {
@@ -40,6 +41,10 @@ class FirebaseService implements IFbService {
     this._auth = firebase.auth();
     this._database = firebase.database();
     this._googleProvider = new firebase.auth.GoogleAuthProvider();
+  }
+
+  ref (value: string) {
+    return this._database.ref(value);
   }
 
   async push(referance: string, data: any): Promise<any>{
