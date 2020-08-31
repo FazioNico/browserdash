@@ -27,3 +27,4 @@ UserInterfaceState.xcuserstate
 
 www/
 src/environements/
+*.env.ts

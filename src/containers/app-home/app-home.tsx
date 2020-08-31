@@ -2,7 +2,7 @@ import { Component, h, State, Element } from '@stencil/core';
 import fbService,  { IFbService } from '../../providers/firebase.service';
 import { defaultWidgetsSetting } from '../../providers/default-widgets';
 import { getWidgetsAsArray, fadeIn } from '../../helpers';
-import { unsplashApiKey } from '../../environements/environement.prod';
+import { unsplashApiKey } from '../../global/app.env';
 
 @Component({
   tag: 'app-home',

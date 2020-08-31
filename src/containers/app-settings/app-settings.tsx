@@ -32,7 +32,7 @@ export class AppSettings {
     this.displayName = userData?.displayName || user.displayName;
     console.log('userData', this.displayName);
     const widgets = getWidgetsAsArray(widgetsData);
-    this.widgets = [...defaultWidgetsSetting.filter(w => !widgets.some(wi => wi.name === w.name)), ...widgets];
+    this.widgets = [...defaultWidgetsSetting.filter(w => w.enabled && !widgets.some(wi => wi.name === w.name)),  ...widgets];
     console.log('this.widgets', this.widgets);
     this.darkModeEnable = userData?.settings?.darkMode || true;
   }
@@ -60,7 +60,13 @@ export class AppSettings {
   }
 
   render() {
-    const widgets = this.widgets.sort(compareValues('name'));
+    const widgets = this.widgets
+      .filter(el => {
+        console.log('xxx', el);
+        
+        return el;
+      })
+      .sort(compareValues('name'))
     return [
       <ion-header>
         <ion-toolbar>

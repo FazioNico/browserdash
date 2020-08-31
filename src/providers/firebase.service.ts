@@ -4,7 +4,7 @@ import * as firebase from "firebase/app";
 // Add the Firebase services that you want to use
 import "firebase/auth";
 import "firebase/database";
-import { firebaseConfig } from "../environements/environement.prod";
+import { firebaseConfig } from "../global/app.env";
 import { log } from "../helpers/utils";
 
 export interface IFbService {
