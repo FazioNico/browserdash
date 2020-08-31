@@ -1,6 +1,7 @@
 import { Component, Host, h, Prop, State } from '@stencil/core';
 import { Geolocation } from '@capacitor/core';
 import { IowMap } from './meteo.interface';
+import { log } from '../../helpers';
 
 
 @Component({
@@ -20,18 +21,22 @@ export class MeteoComponent {
 
   private async _getCurrentPosition() {
     const coordinates = await Geolocation.getCurrentPosition();
-    console.log('Current', coordinates);
+    log('Current', coordinates);
     return coordinates;
   }
 
 
   async _getByLatLong({latitude, longitude}: {latitude: number, longitude: number}) {
-    this.datas = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${this.appId}&units=metric`)
-                        .then(r => r.json())
-                        .then((r: IowMap) => r)
-                        .catch(err => err);
-    console.log(this.datas);
-    
+    const url = this._getApiUrl({latitude, longitude});
+    this.datas = await fetch(url).then(r => r.json()).catch(err => err);
+    log(this.datas);
+  }
+
+  private _getApiUrl({latitude, longitude}: {latitude: number, longitude: number}) {
+    const apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
+    const apiArgs = `lat=${latitude}&lon=${longitude}&units=metric`;
+    const url = `${apiUrl}?${apiArgs}&appid=${this.appId}`;
+    return url;
   }
 
   render() {
