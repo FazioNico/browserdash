@@ -2,8 +2,15 @@
   "name": "browserdash",
   "short_name": "browserdash",
 	"icons": {
-		"192": "assets/icon/icon192.png",
-		 "512": "assets/icon/icon512.png"
+		"192": "assets/icon/android-icon-192x192-dunplab-manifest-10901.png",
+		"180": "assets/icon/apple-icon-180x180-dunplab-manifest-10901.png",
+		"152": "assets/icon/apple-icon-152x152-dunplab-manifest-10901.png",
+		"144": "assets/icon/apple-icon-144x144-dunplab-manifest-10901.png",
+		"96": "assets/icon/favicon-96x96-dunplab-manifest-10901.png",
+		"76": "assets/icon/apple-icon-76x76-dunplab-manifest-10901.png",
+		"72": "assets/icon/apple-icon-72x72-dunplab-manifest-10901.png",
+		"32": "assets/icon/favicon-32x32-dunplab-manifest-10901.png",
+		"16": "assets/icon/favicon-16x16-dunplab-manifest-10901.png"
   },
 	"chrome_url_overrides": {
 		"newtab": "index.html"
