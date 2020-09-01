@@ -51,7 +51,7 @@ export class MeteoComponent {
                 </ion-text>
               </ion-col>
               <ion-col size="4" class="ion-no-padding">
-                <img src={'http://openweathermap.org/img/wn/' + this.datas?.weather[0].icon + '@2x.png'} /> 
+                <img src={'https://openweathermap.org/img/wn/' + this.datas?.weather[0].icon + '@2x.png'} /> 
               </ion-col>
             </ion-row>
             <ion-row class="ion-align-items-top">

@@ -1,17 +1,36 @@
 {
   "name": "browserdash",
   "short_name": "browserdash",
-  "start_url": "/",
-  "display": "standalone",
-  "icons": [{
-    "src": "assets/icon/icon192.png",
-    "sizes": "192x192",
-    "type": "image/png"
-  },{
-    "src": "assets/icon/icon512.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }],
-  "background_color": "#488aff",
-  "theme_color": "#488aff"
+	"icons": {
+		"192": "assets/icon/icon192.png",
+		 "512": "assets/icon/icon512.png"
+  },
+	"chrome_url_overrides": {
+		"newtab": "index.html"
+  },
+	"web_accessible_resources": [
+		"index.html"
+  ],
+  "permissions": [
+    "identity",
+    "geolocation",
+    "bookmarks",
+    "chrome://favicon/",
+		"topSites",
+		"management",
+		"tabs",
+		"fontSettings",
+		"sessions"
+  ],
+  "oauth2": {
+    "client_id": "528268255572-maq4ml8e732m3foktalab4d0sf2j1170.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ],
+    "key": "AIzaSyBsMJIFetBsGXJdU3LDFFnTVTufKvSEDCU"
+  },
+  "content_security_policy":"script-src 'self' 'unsafe-eval' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com https://apis.google.com; object-src 'self'",
+  "manifest_version": 2,
+  "version": "0.0.1"
 }

@@ -39,7 +39,7 @@ export class AppRoot {
     if (this.user)  {
       return (
         <ion-app>
-          <ion-router useHash={false}>
+          <ion-router useHash={true}>
             <ion-route url="/" component="app-home"/>
             <ion-route url="/settings" component="app-settings" />
             <ion-route url="/profile/:name" component="app-profile" />
